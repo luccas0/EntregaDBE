@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="content">
+	
+	 		<p:messages id="messages" closable="true">
+	            <p:autoUpdate/>
+	        </p:messages>
+	        
+		<!-- TABELA -->
+		<h:form>
+			<div class="card">
+				<p:dataTable var="setup" value="#{setupBean.list}" editable="true">
+					<p:ajax event="rowEdit" listener="#{setupBean.edit()}" update="messages"/>
+					
+					<p:column headerText="Imagem">
+						<img src="#{request.contextPath}#{setup.imagePath}" style="width: 150px" />
+					</p:column>
+					
+					<p:column headerText="ID">
+						<h:outputText value="#{setup.id}" />
+					</p:column>
+
+					<p:column headerText="Nome">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{setup.name}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{setup.name}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Data de nascimento">
+						<h:outputText value="#{setup.birthday}" />
+					</p:column>
+
+					<p:column headerText="Cpf">
+						<h:outputText value="#{setup.cpf}" />
+					</p:column>
+					
+					<p:column headerText="RG">
+						<h:outputText value="#{setup.RG}" />
+					</p:column>
+					
+					<p:column style="width:6rem">
+						<p:commandButton title="delete setup" action="#{setupBean.delete(setup)}" icon="pi pi-trash" styleClass="rounded-button ui-button-danger ui-button-flat" />
+					</p:column>
+					<p:column style="width:6rem">
+		                <p:rowEditor editTitle="Edit setup" cancelTitle="Cancel Edit" saveTitle="Save setup"/>
+		            </p:column>
+				</p:dataTable>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
+
+
+</html>
